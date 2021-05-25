@@ -51,31 +51,33 @@ public class Jeopardy implements ActionListener {
 		frame.setLayout(new BorderLayout());
 
 		// 1. Make the frame show up
-
+		frame.setVisible(true);
 		// 2. Give your frame a title
-
+		frame.setTitle("Jepardy");
 		// 3. Create a JPanel variable to hold the header using the createHeader method
-
+		
+		JPanel panel = createHeader("video games");
 		// 4. Add the header component to the quizPanel
-
+		quizPanel.add(panel);
 		// 5. Add the quizPanel to the frame
-
+		frame.add(quizPanel);
 		// 6. Use the createButton method to set the value of firstButton
-
+	    firstButton = createButton("Shooter Games");
 		// 7. Add the firstButton to the quizPanel
-
+	    quizPanel.add(firstButton);
 		// 8. Write the code to complete the createButton() method below. Check that your
 		// game looks like Figure 1 in the Jeopardy Handout - http://bit.ly/1bvnvd4.
 
 		// 9. Use the secondButton variable to hold a button using the createButton
 		// method
-
+	    secondButton = createButton("RPG games");
 		// 10. Add the secondButton to the quizPanel
-
+	    quizPanel.add(secondButton);
 		// 11. Add action listeners to the buttons (2 lines of code)
-
+	    secondButton.addActionListener(this);
+	    firstButton.addActionListener(this);
 		// 12. Write the code to complete the actionPerformed() method below
-
+	    
 		// 13. Add buttons so that you have $200, $400, $600, $800 and $1000 questions
 		
 		 /*
@@ -94,26 +96,34 @@ public class Jeopardy implements ActionListener {
 	private JButton createButton(String dollarAmount) {
 		
 		// Create a new JButton
-
+		JButton button = new JButton();
+		
 		// Set the text of the button to the dollarAmount
-
+		button.setText("200");
 		// Increment the buttonCount (this should make the layout vertical)
-
+		buttonCount += 1;
 		// Return your new button instead of the temporary button
-
-		return new JButton("temporary button");
+		return button;
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		
 		// Remove this temporary message after testing:
-		JOptionPane.showMessageDialog(null, "pressed " + ((JButton) e.getSource()).getText() + " button");
+		
 
 		JButton buttonPressed = (JButton) e.getSource();
 		// If the buttonPressed was the firstButton
-
+		if(buttonPressed.equals(firstButton)) {
+			askQuestion("This game is a battle royale where you drop from a helicopter", "what is warzone",  200);
+			firstButton.setText("");
+		}
 			// Call the askQuestion() method
- 
+		if(buttonPressed.equals(secondButton)) {
+			askQuestion("this game is a shooter game where you buy guns from the begginning of a round, and push two sites", "what is CSGO", 200);
+			secondButton.setText("");
+		}
+		
 		// Complete the code in the askQuestion() method. When you play the game, the score should change.
 
 		// If the buttonPressed was the secondButton
@@ -127,20 +137,29 @@ public class Jeopardy implements ActionListener {
 	private void askQuestion(String question, String correctAnswer, int prizeMoney) {
 		
 		// Use the playJeopardyTheme() method to play music while the use thinks of an answer
-		
+		playJeopardyTheme();
 		// Remove this temporary message and replace it with a pop-up that asks the user the question
-		JOptionPane.showMessageDialog(null, "this is where the question will be asked");
+		String answer = JOptionPane.showInputDialog(null, question);
 		
 		// Stop the theme music when they have entered their response. 
+		stopJeopardyTheme();
+			
 		
 		// If the answer is correct
-
+		if(answer.equalsIgnoreCase(correctAnswer)){
+			score += prizeMoney;
+			JOptionPane.showMessageDialog(null, "You were Correct");
+		}
 			// Increase the score by the prizeMoney
 
 			// Pop up a message to tell the user they were correct
 
 		// Otherwise
-
+		else {
+			score -= prizeMoney;
+			JOptionPane.showMessageDialog(null, "You were wrong, the correct answer was " + correctAnswer);
+		}
+		updateScore();
 			// Decrement the score by the prizeMoney
 
 			// Pop up a message to tell the user they were wrong and give them the correct answer
