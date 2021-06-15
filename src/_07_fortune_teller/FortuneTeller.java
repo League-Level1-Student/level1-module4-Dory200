@@ -46,12 +46,13 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
    	 int mouseX = e.getX();
    	 int mouseY = e.getY();
    	 // 5. Print the mouseX variable
-   	 System.out.println(mouseX + mouseY);
+   	 System.out.println(mouseX);
+   	 System.out.println(mouseY);
    	 // 6. Add the mouseY variable to the previous line so that it prints out too (no new line)
    	
    	 // 7. Adjust your secret location co-ordinates here:
-   	 int secretLocationX = 400;
-   	 int secretLocationY = 400;
+   	 int secretLocationX = 285;
+   	 int secretLocationY = 201;
    	 /** If the mouse co-ordinates and secret location are close, we'll let them ask a question. */
    	 if (areClose(mouseX, secretLocationX) && areClose(mouseY, secretLocationY)) {
    		 // 8. Find a spooky sound and put it in your _07_fortune_teller package (freesound.org)
